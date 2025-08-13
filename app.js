@@ -3,7 +3,8 @@
 //Desafio Amigo Secreto
 
 let listaAmigos = [];
-console.log(listaAmigos);
+let listaAmigosSorteado = [];
+
 
 
 function adicionarAmigo() {
@@ -42,16 +43,32 @@ function sortearAmigo() {
     // 1. Verificar se os participantes foram incluídos na lista para o sorteio
     if(listaAmigos.length>0){
         //2. Sorteia um número aleatório entre os índices da lista de amigos participantes
-        let numeroSorteado = Math.floor(Math.random() * listaAmigos.length);    
-        //3. Verifica o nome do amigo sorteado pelo índice da lista
+        let numeroSorteado = Math.floor(Math.random() * listaAmigos.length); 
+
+        //Verificação adicional - oporptunidade de melhoria (não solicitada no desafio)
+        let quantidadeAmigosSorteados = listaAmigosSorteado.length; 
+        if(quantidadeAmigosSorteados == listaAmigos.length) {
+            alert("Todos os amigos foram sorteados!");
+            return;                        
+        }
+        //3. Repetição para garantir que o o amigo sorteado não se repita
+        while (listaAmigosSorteado.includes(numeroSorteado)){
+            numeroSorteado = Math.floor(Math.random() * listaAmigos.length);
+        }
+        //4. Adiciona o ídice do amigo sorteado a lista de sorteados
+        listaAmigosSorteado.push(numeroSorteado);
+        console.log(listaAmigosSorteado);
+
+        //5. Verifica o nome do amigo sorteado pelo índice da lista
         let nomeSorteado = listaAmigos[numeroSorteado];   
-        //4. Pega o elemento do HTML que será usado para exibir o nome sorteado
+        //6. Pega o elemento do HTML que será usado para exibir o nome sorteado
         let amigoSorteado =  document.getElementById('resultado');
-        //5. Mostra o nome sorteado na página para o usuário
+        //7. Mostra o nome sorteado na página para o usuário
         amigoSorteado.innerHTML = nomeSorteado; 
 
     } else {
-        //6. Exibe um aviso ao usuário caso ele não tenha incluído nenhum participante
-        alert("Por favor, adicione pelo menos dois amigos para o sorteio.")}
+        //8. Exibe um aviso ao usuário caso ele não tenha incluído nenhum participante
+        alert("Por favor, adicione pelo menos dois amigos para o sorteio.")
+    }
 }
 
